@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:tasky/core/services/preferences_manager.dart';
 import 'package:tasky/models/tasks_model.dart';
 
+import '../../core/constonts/storage_key.dart';
 import '../../core/widgets/custom_text_form_field.dart';
 
 class AddTaskScreen extends StatefulWidget {
@@ -88,7 +89,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                   ElevatedButton.icon(
                     onPressed: () async {
                       if (_key.currentState?.validate() ?? false) {
-                        final getJson = PreferencesManager().getString("tasks");
+                        final getJson = PreferencesManager().getString(StorageKey.tasks);
                         List<dynamic> listTasks = [];
                         if (getJson != null) {
                           listTasks = jsonDecode(getJson);
@@ -104,7 +105,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
 
                         final taskEncode = jsonEncode(listTasks);
                         await PreferencesManager().setString(
-                          "tasks",
+                          StorageKey.tasks,
                           taskEncode,
                         );
                         Navigator.of(context).pop(true);

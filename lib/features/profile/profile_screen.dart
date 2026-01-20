@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:tasky/core/constonts/storage_key.dart';
 import 'package:tasky/core/services/preferences_manager.dart';
 import 'package:tasky/core/theme/theme_controller.dart';
 import 'package:tasky/features/profile/user_details_screen.dart';
@@ -31,10 +31,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   _loadUserName() async {
     setState(() {
-      userName = PreferencesManager().getString("username") ?? "";
-      userImage = PreferencesManager().getString("userImage") ;
+      userName = PreferencesManager().getString(StorageKey.username) ?? "";
+      userImage = PreferencesManager().getString(StorageKey.userImage) ;
       motivation =
-          PreferencesManager().getString("motivation") ??
+          PreferencesManager().getString(StorageKey.motivation) ??
           "One task at a time. One step closer.";
       isLoad = false;
     });
@@ -163,10 +163,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
               ListTile(
                 onTap: () async {
-                  PreferencesManager().remove("tasks");
-                  PreferencesManager().remove("username");
-                  PreferencesManager().remove("motivation");
-                  PreferencesManager().remove("userImage");
+                  PreferencesManager().remove(StorageKey.tasks);
+                  PreferencesManager().remove(StorageKey.username);
+                  PreferencesManager().remove(StorageKey.motivation);
+                  PreferencesManager().remove(StorageKey.userImage);
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
